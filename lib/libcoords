@@ -43,9 +43,9 @@ function getCoords(file)
 
         local v = {0, 0, 0}
         if home then
-            v[1] = home.readLine()
-            v[2] = home.readLine()
-            v[3] = home.readLine()
+            v[1] = tonumber(home.readLine())
+            v[2] = tonumber(home.readLine())
+            v[3] = tonumber(home.readLine())
 
             home.close()
         else
