@@ -1,0 +1,117 @@
+-- Library to manage coordinates
+--
+
+function setHome(vector)
+    if non fs.exists("/var/") then
+        fs.makeDir("/var/")
+    end
+    if non fs.exists("/var/coords") then
+        fs.makeDir("/var/coords")
+    end
+
+    local home = fs.open("/var/coords/home", "w")
+
+    if home then
+        home.writeLine(vector.x)
+        home.writeLine(vector.y)
+        home.writeLine(vector.z)
+    else
+        print("Failed to open /var/coords/home")
+        error()
+    end
+end
+
+function getHome()
+    if fs.exists("/var/coords/home") then
+        local home = fs.open("/var/coords/home", "r")
+
+        local vector = new vector(0, 0, 0)
+        if home then
+            vector.x = home.readLine()
+            vector.y = home.readLine()
+            vector.z = home.readLine()
+        else
+            print("Failed to open /var/coords/home")
+            error()
+        end
+
+        return vector
+    else
+        return nil
+    end
+end
+
+function setOrientation(value)
+    -- 1 north
+    -- 2 east
+    -- 3 south
+    -- 4 west
+    --
+    -- north is X +
+    -- south is X -
+    -- east is Y +
+    -- west is Y -
+
+if non fs.exists("/var/") then
+        fs.makeDir("/var/")
+    end
+    if non fs.exists("/var/coords") then
+        fs.makeDir("/var/coords")
+    end
+
+    local home = fs.open("/var/coords/orientation", "w")
+
+    if home then
+        home.writeLine(value)
+    else
+        print("Failed to open /var/coords/home")
+        error()
+    end
+end
+
+
+function getOrientation()
+    -- 1 north
+    -- 2 east
+    -- 3 south
+    -- 4 west
+    --
+    -- north is X +
+    -- south is X -
+    -- east is Y +
+    -- west is Y -
+
+    if fs.exists("/var/coords/orientation") then
+        local orientation = fs.open("/var/coords/orientation", "r")
+
+        if orientation then
+            orientation.readLine()
+            return orientation
+        else
+            return nil
+        end
+    end
+end
+
+function forward()
+    if turtle.forward() then
+        local c = getCurrentCoords()
+        local o = getOrientation()
+        if orientation == 1 then
+            c.x = c.x + 1
+        elseif orientation == 2 then
+            c.y = c.y + 1
+        elseif orientation ==  3 then
+            c.x = c.x - 1
+        elseif orientation == 4 then
+            c.y = c.y - 1
+        else 
+            print("Orientation is not 1, 2, 3 or 4!")
+            error()
+        end
+
+        setCurrentCoords(c)
+    end
+end
+
+-- vim:set ft=lua: 

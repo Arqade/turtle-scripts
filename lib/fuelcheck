@@ -1,0 +1,11 @@
+-- Checks fuel level against a value
+-- Asks for refill if necessary
+function fuelCheck(level)
+    while turtle.getFuelLevel() < level do
+        turtle.select(1)
+        print("Fuel level is insufficient (Needs: ", level - turtle.getFuelLevel(), " more)")
+        print("Please refuel slot 1")
+        waitEnter()
+        turtle.refuel(64)
+    end
+end
