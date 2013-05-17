@@ -2,10 +2,10 @@
 --
 
 function setHome(vector)
-    if non fs.exists("/var/") then
+    if not fs.exists("/var/") then
         fs.makeDir("/var/")
     end
-    if non fs.exists("/var/coords") then
+    if not fs.exists("/var/coords") then
         fs.makeDir("/var/coords")
     end
 
@@ -52,10 +52,10 @@ function setOrientation(value)
     -- east is Y +
     -- west is Y -
 
-if non fs.exists("/var/") then
+    if not fs.exists("/var/") then
         fs.makeDir("/var/")
     end
-    if non fs.exists("/var/coords") then
+    if not fs.exists("/var/coords") then
         fs.makeDir("/var/coords")
     end
 
