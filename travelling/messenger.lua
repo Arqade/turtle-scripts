@@ -25,6 +25,7 @@ os.loadAPI("/lib/libcoords")
 
 local home = libcoords.getHome()
 local ori = libcoords.getOrientation()
+local curr = libcoords.getCurrentCoords()
 
 if home == nil then
     print("No home set, please input x coord:")
@@ -47,6 +48,10 @@ if ori == nil then
     ori = libcoords.getOrientation()
 end
 
+if curr == nil then
+    libcoords.setCurrentCoords(libcoords.getCurrentCoords())
+end
+
 print("Turtle home set to : " .. home[1] .. "/" .. home[2] .. "/" .. home[3])
 local curr = libcoords.getCurrentCoords()
 print("Current position is : " .. curr[1] .. "/" .. curr[2] .. "/" .. curr[3])
@@ -54,12 +59,14 @@ print("Current position is : " .. curr[1] .. "/" .. curr[2] .. "/" .. curr[3])
 print("Turtle is facing : " .. ori)
 
 print("Please input dest x :")
-local xdest = read()
+local xdest = tonumber(read())
 
 print("Please input dest y :")
-local ydest = read()
+local ydest = tonumber(read())
 
 local dest = {xdest, ydest}
 
+print("proceed ?")
+read()
 reach(dest)
 
