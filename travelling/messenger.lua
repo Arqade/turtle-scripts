@@ -2,9 +2,9 @@
 
 local args = { ... } 
 
-os.loadAPI("/lib/lib-coords")
+os.loadAPI("/lib/libcoords")
 
-local home = lib-coords.getHome()
+local home = libcoords.getHome()
 
 if home == nil then
     print("No home set, please input x coord:")
@@ -14,7 +14,7 @@ if home == nil then
     print("z coord:")
     local z = read()
 
-    local vector = new vector(x, y, z)
+    local vector = vector.new(x, y, z)
 
     coords.setHome(vector)
 else
