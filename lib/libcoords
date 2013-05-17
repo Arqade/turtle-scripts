@@ -1,7 +1,7 @@
 -- Library to manage coordinates
 --
 
-function setHome(vector)
+function setHome(v)
     if not fs.exists("/var/") then
         fs.makeDir("/var/")
     end
@@ -12,9 +12,9 @@ function setHome(vector)
     local home = fs.open("/var/coords/home", "w")
 
     if home then
-        home.writeLine(vector.x)
-        home.writeLine(vector.y)
-        home.writeLine(vector.z)
+        home.writeLine(v.x)
+        home.writeLine(v.y)
+        home.writeLine(v.z)
     else
         print("Failed to open /var/coords/home")
         error()
@@ -25,17 +25,17 @@ function getHome()
     if fs.exists("/var/coords/home") then
         local home = fs.open("/var/coords/home", "r")
 
-        local vector = new vector(0, 0, 0)
+        local v = vector.new(0, 0, 0)
         if home then
-            vector.x = home.readLine()
-            vector.y = home.readLine()
-            vector.z = home.readLine()
+            v.x = home.readLine()
+            v.y = home.readLine()
+            v.z = home.readLine()
         else
             print("Failed to open /var/coords/home")
             error()
         end
 
-        return vector
+        return v
     else
         return nil
     end
