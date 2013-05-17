@@ -34,6 +34,8 @@ function getHome()
             v[1] = home.readLine()
             v[2] = home.readLine()
             v[3] = home.readLine()
+
+            home.close()
         else
             print("Failed to open /var/coords/home")
             error()
@@ -63,10 +65,11 @@ function setOrientation(value)
         fs.makeDir("/var/coords")
     end
 
-    local home = fs.open("/var/coords/orientation", "w")
+    local orientation = fs.open("/var/coords/orientation", "w")
 
-    if home then
-        home.writeLine(value)
+    if orientation then
+        orientation.writeLine(value)
+        orientation.close()
     else
         print("Failed to open /var/coords/home")
         error()
@@ -90,6 +93,7 @@ function getOrientation()
 
         if orientation then
             orientation.readLine()
+            orientation.close()
             return orientation
         else
             return nil
