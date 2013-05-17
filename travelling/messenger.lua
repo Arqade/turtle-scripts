@@ -50,12 +50,11 @@ end
 
 if curr == nil then
     libcoords.setCurrentCoords(libcoords.getCurrentCoords())
+    curr = libcoords.getCurrentCoords()
 end
 
 print("Turtle home set to : " .. home[1] .. "/" .. home[2] .. "/" .. home[3])
-local curr = libcoords.getCurrentCoords()
 print("Current position is : " .. curr[1] .. "/" .. curr[2] .. "/" .. curr[3])
-
 print("Turtle is facing : " .. ori)
 
 print("Please input dest x :")
