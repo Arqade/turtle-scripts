@@ -18,6 +18,6 @@ if home == nil then
 
     libcoords.setHome(vector)
 else
-    print("Turtle home set to : " .. home.x .. "/" .. home.y .. "/" .. home.z)
+    print("Turtle home set to : " .. home[1] .. "/" .. home[2] .. "/" .. home[3])
 end
 
