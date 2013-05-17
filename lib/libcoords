@@ -2,22 +2,26 @@
 --
 
 function setHome(v)
-    if not fs.exists("/var/") then
-        fs.makeDir("/var/")
-    end
-    if not fs.exists("/var/coords") then
-        fs.makeDir("/var/coords")
-    end
+    if v ~= nil then
+        if not fs.exists("/var/") then
+            fs.makeDir("/var/")
+        end
+        if not fs.exists("/var/coords") then
+            fs.makeDir("/var/coords")
+        end
 
-    local home = fs.open("/var/coords/home", "w")
+        local home = fs.open("/var/coords/home", "w")
 
-    if home then
-        home.writeLine(v[1])
-        home.writeLine(v[2])
-        home.writeLine(v[3])
-    else
-        print("Failed to open /var/coords/home")
-        error()
+        if home then
+            home.writeLine(v[1])
+            home.writeLine(v[2])
+            home.writeLine(v[3])
+        else
+            print("Failed to open /var/coords/home")
+            error()
+        end
+    else 
+        print("Set home argument empty")
     end
 end
 
