@@ -1,4 +1,5 @@
 -- Makes a turtle travel
+flyingAlt = 100
 
 local args = { ... } 
 
@@ -19,5 +20,13 @@ if home == nil then
     libcoords.setHome(t)
 else
     print("Turtle home set to : " .. home[1] .. "/" .. home[2] .. "/" .. home[3])
+    local curr = libcoords.getCurrentPosition()
+    print("Current position is : " .. curr[1] .. "/" .. curr[2] .. "/" .. curr[3])
+
+    print("Going up to " .. flyingAlt)
+    libcoords.takeoff(flyingAlt)
+    print("Getting back to land")
+    libcoords.land()
+    
 end
 
