@@ -16,6 +16,8 @@ function setHome(v)
             home.writeLine(v[1])
             home.writeLine(v[2])
             home.writeLine(v[3])
+
+            home.close()
         else
             print("Failed to open /var/coords/home")
             error()
