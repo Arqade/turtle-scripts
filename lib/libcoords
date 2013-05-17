@@ -78,7 +78,7 @@ function setOrientation(value)
         orientation.writeLine(value)
         orientation.close()
     else
-        print("Failed to open /var/coords/home")
+        print("Failed to open /var/coords/orientation")
         error()
     end
 end
@@ -98,9 +98,12 @@ function getOrientation()
             ori = tonumber(orientation.readLine())
             orientation.close()
             return ori
-        else
-            return nil
+        else 
+            print("Failed to open /var/coords/orientation")
+            error()
         end
+    else
+        return nil
     end
 end
 
@@ -203,5 +206,6 @@ function setBearing(b)
     while getOrientation() ~= b do
         turtle.turnRight()
     end
+end
 
 -- vim:set ft=lua: 
