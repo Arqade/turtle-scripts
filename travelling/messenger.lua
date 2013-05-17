@@ -12,7 +12,7 @@ function reach(v)
         libcoords.takeoff(flyingAlt)
 
         print("Moving to X/Y")
-        coords.pathfindingXthenY(v[1], v[2])
+        libcoords.pathfindingXthenY(v[1], v[2])
 
         print("Getting back to land")
         libcoords.land()
