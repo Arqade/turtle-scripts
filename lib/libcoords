@@ -93,10 +93,11 @@ function getOrientation()
     if fs.exists("/var/coords/orientation") then
         local orientation = fs.open("/var/coords/orientation", "r")
 
+        local ori
         if orientation then
-            orientation.readLine()
+            ori = tonumber(orientation.readLine())
             orientation.close()
-            return orientation
+            return ori
         else
             return nil
         end
@@ -165,5 +166,42 @@ function land(alt)
     while down() do
     end
 end
+
+function pathfindingXthenY(xdest, ydest)
+    local curr = getCurrentCoords()
+
+    -- Choosing course
+    if xdest > curr[1] then
+        -- need to go east:2
+        setBearing(2)
+    elseif xdest < curr[1] then
+        -- need to go west:4
+        setBearing(4)
+    end
+
+    while curr[1] ~= xdest do
+        forward()
+        curr = getCurrentCoords()
+    end
+
+    -- Choosing course on Y
+    if ydest > curr[2] then
+        -- need to go south:3
+        setBearing(3)
+    elseif ydest < curr[2] then
+        -- need to go north:1
+        setBearing(3)
+    end
+
+    while curr[2] ~= ydest do
+        forward()
+        curr = getCurrentCoords()
+    end
+end
+ 
+function setBearing(b)
+    while getOrientation() ~= b do
+        turtle.turnRight()
+    end
 
 -- vim:set ft=lua: 
