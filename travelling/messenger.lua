@@ -1,5 +1,5 @@
 -- Makes a turtle travel
-flyingAlt = 100
+flyingAlt = 160
 
 function reach(v)
     local curr = libcoords.getCurrentCoords()
