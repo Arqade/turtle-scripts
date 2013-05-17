@@ -1,16 +1,22 @@
 -- Library to manage coordinates
 --
 
-function setHome(v)
-    if v ~= nil then
-        if not fs.exists("/var/") then
-            fs.makeDir("/var/")
-        end
-        if not fs.exists("/var/coords") then
-            fs.makeDir("/var/coords")
-        end
+travellingAlt = 100 -- to be changed to 160
 
-        local home = fs.open("/var/coords/home", "w")
+function setHome(v)
+    if not fs.exists("/var/") then
+        fs.makeDir("/var/")
+    end
+    if not fs.exists("/var/coords") then
+        fs.makeDir("/var/coords")
+    end
+    setCoords(v, "/var/coords/home")
+    setCoords(v, "/var/coords/current")
+end
+
+function setCoords(v, file)
+    if v ~= nil then
+        local home = fs.open(file, "w")
 
         if home then
             home.writeLine(v[1])
@@ -19,7 +25,7 @@ function setHome(v)
 
             home.close()
         else
-            print("Failed to open /var/coords/home")
+            print("Failed to open " .. file)
             error()
         end
     else 
@@ -28,8 +34,12 @@ function setHome(v)
 end
 
 function getHome()
-    if fs.exists("/var/coords/home") then
-        local home = fs.open("/var/coords/home", "r")
+    return getCoords("/var/coords/home")
+end
+
+function getCoords(file)
+    if fs.exists(file) then
+        local home = fs.open(file, "r")
 
         local v = {0, 0, 0}
         if home then
@@ -39,7 +49,7 @@ function getHome()
 
             home.close()
         else
-            print("Failed to open /var/coords/home")
+            print("Failed to open " .. file)
             error()
         end
 
@@ -54,11 +64,6 @@ function setOrientation(value)
     -- 2 east
     -- 3 south
     -- 4 west
-    --
-    -- north is X +
-    -- south is X -
-    -- east is Y +
-    -- west is Y -
 
     if not fs.exists("/var/") then
         fs.makeDir("/var/")
@@ -84,11 +89,6 @@ function getOrientation()
     -- 2 east
     -- 3 south
     -- 4 west
-    --
-    -- north is X +
-    -- south is X -
-    -- east is Y +
-    -- west is Y -
 
     if fs.exists("/var/coords/orientation") then
         local orientation = fs.open("/var/coords/orientation", "r")
@@ -103,24 +103,66 @@ function getOrientation()
     end
 end
 
+function getCurrentCoords() 
+    return getCoords("/var/coords/current")
+end
+
+function setCurrentCoords(v)
+    setCoords(v, "/var/coords/current")
+end
+
 function forward()
+    -- 1 north is -y
+    -- 2 east is +x
+    -- 3 south is +y
+    -- 4 west is -x
     if turtle.forward() then
         local c = getCurrentCoords()
         local o = getOrientation()
         if orientation == 1 then
-            c.x = c.x + 1
+            c[2] = c[2] - 1
         elseif orientation == 2 then
-            c.y = c.y + 1
+            c[1] = c[1] + 1
         elseif orientation ==  3 then
-            c.x = c.x - 1
+            c[2] = c[2] + 1
         elseif orientation == 4 then
-            c.y = c.y - 1
+            c[1] = c[1] - 1
         else 
             print("Orientation is not 1, 2, 3 or 4!")
             error()
         end
 
         setCurrentCoords(c)
+    end
+end
+
+function up()
+    if turtle.up() then
+        local c = getCurrentCoords()
+        c[3] = c[3] + 1
+        setCurrentCoords(c)
+    end
+end
+
+function down()
+    local res = turtle.down()
+    if res then
+        local c = getCurrentCoords()
+        c[3] = c[3] - 1
+        setCurrentCoords(c)
+    end
+     
+    return res
+end
+
+function takeoff(alt)
+    while getCurrentCoords()[3] ~= alt do
+        up()
+    end
+end
+
+function land(alt)
+    while down() do
     end
 end
 
