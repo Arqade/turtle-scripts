@@ -49,7 +49,7 @@ if ori == nil then
 end
 
 if curr == nil then
-    libcoords.setCurrentCoords(libcoords.getCurrentCoords())
+    libcoords.setCurrentCoords(libcoords.getHome())
     curr = libcoords.getCurrentCoords()
 end
 
