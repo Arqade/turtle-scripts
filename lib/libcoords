@@ -156,7 +156,7 @@ function down()
 end
 
 function takeoff(alt)
-    while getCurrentCoords()[3] ~= alt do
+while getCurrentCoords()[3] < alt do
         up()
     end
 end
