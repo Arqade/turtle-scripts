@@ -176,12 +176,15 @@ function pathfindingXthenY(xdest, ydest)
     -- Choosing course
     if xdest > curr[1] then
         -- need to go east:2
+        print("Setting east orientation")
         setBearing(2)
     elseif xdest < curr[1] then
         -- need to go west:4
+        print("Setting west orientation")
         setBearing(4)
     end
 
+    print("Moving b:" .. getOrientation())
     while curr[1] ~= xdest do
         forward()
         curr = getCurrentCoords()
@@ -190,12 +193,15 @@ function pathfindingXthenY(xdest, ydest)
     -- Choosing course on Y
     if ydest > curr[2] then
         -- need to go south:3
+        print("Setting south orientation")
         setBearing(3)
     elseif ydest < curr[2] then
         -- need to go north:1
-        setBearing(3)
+        print("Setting north orientation")
+        setBearing(1)
     end
 
+    print("Moving")
     while curr[2] ~= ydest do
         forward()
         curr = getCurrentCoords()
@@ -203,8 +209,13 @@ function pathfindingXthenY(xdest, ydest)
 end
  
 function setBearing(b)
-    while getOrientation() ~= b do
+    local o = getOrientation()
+    while o ~= b do
         turtle.turnRight()
+        o = o + 1
+        if o == 5 then
+            o = 1
+        end
     end
 end
 
