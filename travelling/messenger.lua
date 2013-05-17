@@ -37,18 +37,20 @@ if home == nil then
     local t = {x, y, z} 
 
     libcoords.setHome(t)
+    home = libcoords.getHome()
 end
 
 if ori == nil then
     print("Which direction am I facing? north 1, east 2, south 3, west 4")
     o = read()
     libcoords.setOrientation(o)
+    ori = libcoords.getOrientation()
 end
 
 print("Turtle home set to : " .. home[1] .. "/" .. home[2] .. "/" .. home[3])
 local curr = libcoords.getCurrentCoords()
 print("Current position is : " .. curr[1] .. "/" .. curr[2] .. "/" .. curr[3])
-ori = libcoords.getOrientation()
+
 print("Turtle is facing : " .. ori)
 
 print("Please input dest x :")
