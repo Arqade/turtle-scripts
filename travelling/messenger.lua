@@ -2,9 +2,9 @@
 
 local args = { ... } 
 
-os.loadAPI("/lib/coords")
+os.loadAPI("/lib/lib-coords")
 
-local home = coords.getHome()
+local home = lib-coords.getHome()
 
 if home == nil then
     print("No home set, please input x coord:")
