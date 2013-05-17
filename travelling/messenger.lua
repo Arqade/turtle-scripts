@@ -16,7 +16,7 @@ if home == nil then
 
     local vector = vector.new(x, y, z)
 
-    coords.setHome(vector)
+    libcoords.setHome(vector)
 else
     print("Turtle home set to : " .. home.x .. "/" .. home.y .. "/" .. home.z)
 end
