@@ -14,9 +14,9 @@ if home == nil then
     print("z coord:")
     local z = read()
 
-    local vector = vector.new(x, y, z)
+    local t = {x, y, z} 
 
-    libcoords.setHome(vector)
+    libcoords.setHome(t)
 else
     print("Turtle home set to : " .. home[1] .. "/" .. home[2] .. "/" .. home[3])
 end

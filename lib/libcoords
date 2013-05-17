@@ -12,9 +12,9 @@ function setHome(v)
     local home = fs.open("/var/coords/home", "w")
 
     if home then
-        home.writeLine(v.x)
-        home.writeLine(v.y)
-        home.writeLine(v.z)
+        home.writeLine(v[1])
+        home.writeLine(v[2])
+        home.writeLine(v[3])
     else
         print("Failed to open /var/coords/home")
         error()
@@ -25,11 +25,11 @@ function getHome()
     if fs.exists("/var/coords/home") then
         local home = fs.open("/var/coords/home", "r")
 
-        local v = vector.new(0, 0, 0)
+        local v = {0, 0, 0}
         if home then
-            v.x = home.readLine()
-            v.y = home.readLine()
-            v.z = home.readLine()
+            v[1] = home.readLine()
+            v[2] = home.readLine()
+            v[3] = home.readLine()
         else
             print("Failed to open /var/coords/home")
             error()
